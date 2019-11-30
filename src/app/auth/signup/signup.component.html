@@ -1,1 +1,21 @@
-<p>signup works!</p>
+<form #signupForm="ngForm" (ngSubmit)="onSubmit(signupForm)" fxLayout="column" fxLayoutAlign="center center">
+  <mat-form-field>
+    <input
+      type="email"
+      matInput
+      ngModel
+      name="email"
+      placeholder="e-mail"
+      required>
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      type="password"
+      matInput
+      ngModel
+      name="password"
+      placeholder="Password"
+      required>
+  </mat-form-field>
+  <button mat-raised-button [disabled]="signupForm.invalid" color="primary" type="submit">Sign Up</button>
+</form>
