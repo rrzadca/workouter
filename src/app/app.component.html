@@ -1,6 +1,6 @@
 <mat-sidenav-container>
   <mat-sidenav #sidenav>
-    <rr-sidenav-list (sidenavClose)="sidenav.close()"></rr-sidenav-list>
+    <rr-sidenav-list (sidenavClosed)="sidenav.close()"></rr-sidenav-list>
   </mat-sidenav>
   <mat-sidenav-content>
     <rr-header (sidenavToggle)="sidenav.toggle()"></rr-header>

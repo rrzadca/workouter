@@ -10,12 +10,11 @@ import {HeaderComponent} from './navigation/header/header.component';
 import {SidenavListComponent} from './navigation/sidenav-list/sidenav-list.component';
 import {SettingsComponent} from './settings/settings.component';
 import {WorkoutsComponent} from './workouts/workouts.component';
+import {AuthModule} from './auth/auth.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    SignupComponent,
     HeaderComponent,
     SidenavListComponent,
     SettingsComponent,
@@ -24,7 +23,8 @@ import {WorkoutsComponent} from './workouts/workouts.component';
   imports: [
     SharedModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]
