@@ -6,12 +6,7 @@ import {NgForm} from '@angular/forms';
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss']
 })
-export class SignupComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
+export class SignupComponent {
 
   onSubmit(form: NgForm) {
     console.log('SUBMIT SIGNUP', form);
