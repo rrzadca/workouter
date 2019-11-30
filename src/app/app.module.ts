@@ -11,6 +11,7 @@ import {SidenavListComponent} from './navigation/sidenav-list/sidenav-list.compo
 import {SettingsComponent} from './settings/settings.component';
 import {WorkoutsComponent} from './workouts/workouts.component';
 import {AuthModule} from './auth/auth.module';
+import {AuthRoutingModule} from './auth/auth-routing.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import {AuthModule} from './auth/auth.module';
     SharedModule,
     BrowserModule,
     AppRoutingModule,
-    AuthModule
+    AuthModule,
+    AuthRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
