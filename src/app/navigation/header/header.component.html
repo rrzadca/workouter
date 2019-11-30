@@ -1,0 +1,26 @@
+<mat-toolbar color="primary">
+  <div fxLayout fxHide.gt-xs>
+    <button mat-icon-button (click)="onSidenavToggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+  <div>
+    <a href="#">RR Workouter</a>
+  </div>
+  <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
+    <ul fxLayout fxLayoutGap="10px" class="navigation-items">
+      <li>
+        <a href="#">Sign Up</a>
+      </li>
+      <li>
+        <a href="#">Login</a>
+      </li>
+      <li>
+        <a href="#">Training</a>
+      </li>
+      <li>
+        <a style="cursor: pointer;" (click)="onLogout()">Logout</a>
+      </li>
+    </ul>
+  </div>
+</mat-toolbar>
