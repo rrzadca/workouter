@@ -1,4 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Store} from '@ngrx/store';
+import * as fromApp from '../../store/app,reducer';
+import * as AuthActions from '../../auth/store/auth.actions';
 
 @Component({
   selector: 'rr-sidenav-list',
@@ -9,13 +12,13 @@ export class SidenavListComponent {
 
   @Output() sidenavClosed = new EventEmitter<void>();
 
-  constructor() { }
-
   onSidenavClose() {
     this.sidenavClosed.emit();
   }
 
   onLogout() {
-    console.error('Not implemented: Logout()');
+    this.store.dispatch(AuthActions.logout());
   }
+
+  constructor(private store: Store<fromApp.AppState>) { }
 }

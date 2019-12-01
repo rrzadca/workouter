@@ -9,15 +9,3 @@ export const logout = createAction('[Login Page] Logout');
 export const startSignup = createAction('[Signup Page] Start signup', props<{ email: string, password: string }>());
 export const signupSuccess = createAction('[Signup API] Signup success', props<{ user: User }>());
 export const signupFailed = createAction('[Signup API] Signup failed', props<{ errorMessage: string}>());
-/*
-export const actions = union({
-  startLogin,
-  loginSuccess,
-  loginFailed,
-  logout,
-  startSignup,
-  signupSuccess,
-  signupFailed
-});
-
-export type AuthActions = typeof actions;*/

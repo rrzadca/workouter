@@ -4,9 +4,8 @@ import {catchError, map, mergeMap} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 import {AuthService} from '../auth.service';
 import {HttpErrorResponse} from '@angular/common/http';
-import {Observable, of} from 'rxjs';
-import {Action} from '@ngrx/store';
-import {error} from 'util';
+import {of} from 'rxjs';
+import {Credentials} from '../models/credentials.model';
 
 @Injectable()
 export class AuthEffects {
@@ -14,20 +13,38 @@ export class AuthEffects {
   authSignup$ = createEffect(
     () => this.actions$.pipe(
       ofType(AuthActions.startSignup),
-      mergeMap(action =>
+      map(action => ({ email: action.email, password: action.password } as Credentials)),
+      mergeMap(credentials =>
         this.authService
-          .signup(action.email, action.password)
+          .signup(credentials)
           .pipe(
             map(response => AuthActions.signupSuccess({ user: { id: response.idToken, email: response.email }})),
             catchError((errorResponse: HttpErrorResponse) => {
-              return of(AuthActions.signupFailed({ errorMessage: this.handleErrors(errorResponse) }));
+              return of(AuthActions.signupFailed({ errorMessage: this.decodeErrorResponse(errorResponse) }));
             })
           )
       )
     )
   );
 
-  private handleErrors(errorResponse: HttpErrorResponse): string {
+  authLogin$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(AuthActions.startLogin),
+      map(action => ({ email: action.email, password: action.password } as Credentials)),
+      mergeMap(credentials =>
+        this.authService
+          .login(credentials)
+          .pipe(
+            map(response => AuthActions.loginSuccess({ user: { id: response.idToken, email: response.email }})),
+            catchError((errorResponse: HttpErrorResponse) => {
+              return of(AuthActions.loginFailed({ errorMessage: this.decodeErrorResponse(errorResponse)}));
+            })
+          )
+      )
+    )
+  );
+
+  private decodeErrorResponse(errorResponse: HttpErrorResponse): string {
     let errorMessage = 'An unknown error occured!';
 
     switch (errorResponse.error.error.message) {

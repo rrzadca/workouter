@@ -18,9 +18,6 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   isLoading$: Observable<boolean>;
 
-  constructor(private store: Store<fromRoot.AppState>,
-              private dialog: MatDialog) {}
-
   ngOnInit(): void {
     this.isLoading$ = this.store.select(store => store.auth.isLoading);
 
@@ -41,4 +38,7 @@ export class SignupComponent implements OnInit, OnDestroy {
       this.subscription.unsubscribe();
     }
   }
+
+  constructor(private store: Store<fromRoot.AppState>,
+              private dialog: MatDialog) {}
 }

@@ -1,6 +1,8 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {StoreModule} from '@ngrx/store';
+import {EffectsModule} from '@ngrx/effects';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -11,11 +13,9 @@ import {SettingsComponent} from './settings/settings.component';
 import {WorkoutsComponent} from './workouts/workouts.component';
 import {AuthModule} from './auth/auth.module';
 import {AuthRoutingModule} from './auth/auth-routing.module';
-import * as fromApp from './store/app,reducer';
-import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {environment} from '../environments/environment';
-import {EffectsModule} from '@ngrx/effects';
 import {AuthEffects} from './auth/store/auth.effects';
+import * as fromApp from './store/app,reducer';
 
 @NgModule({
   declarations: [
