@@ -17,5 +17,8 @@
       placeholder="Password"
       required>
   </mat-form-field>
-  <button mat-raised-button [disabled]="signupForm.invalid" color="primary" type="submit">Sign Up</button>
+  <mat-spinner *ngIf="isLoading$ | async"></mat-spinner>
+  <button
+    *ngIf="!(isLoading$ | async)"
+    mat-raised-button [disabled]="signupForm.invalid" color="primary" type="submit">Sign Up</button>
 </form>
