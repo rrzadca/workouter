@@ -1,11 +1,12 @@
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import * as AuthActions from './auth.actions';
-import {catchError, map, mergeMap} from 'rxjs/operators';
+import {catchError, map, mergeMap, tap} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 import {AuthService} from '../auth.service';
 import {HttpErrorResponse} from '@angular/common/http';
 import {of} from 'rxjs';
 import {Credentials} from '../models/credentials.model';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class AuthEffects {
@@ -44,6 +45,26 @@ export class AuthEffects {
     )
   );
 
+  authLogout$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(AuthActions.logout),
+      tap(() => {
+        this.router.navigate(['/login']);
+      })
+    ),
+    { dispatch: false }
+  );
+
+  authRedirect$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(AuthActions.loginSuccess, AuthActions.signupSuccess),
+      tap(() => {
+        this.router.navigate(['/workouts']);
+      })
+    ),
+    { dispatch: false }
+  );
+
   private decodeErrorResponse(errorResponse: HttpErrorResponse): string {
     let errorMessage = 'An unknown error occured!';
 
@@ -62,6 +83,7 @@ export class AuthEffects {
   }
 
   constructor(private actions$: Actions,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private router: Router) {
   }
 }
