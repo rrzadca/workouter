@@ -3,7 +3,7 @@ import {MatTableDataSource} from '@angular/material';
 import {Store} from '@ngrx/store';
 import {Subscription} from 'rxjs';
 import {Exercise} from '../exercise.model';
-import * as fromApp from '../../../store/app,reducer';
+import * as fromApp from '../../../store/app.reducer';
 import * as fromExercise from '../store/exercise.reducer';
 import * as ExerciseActions from '../store/exercise.actions';
 import {map} from 'rxjs/operators';

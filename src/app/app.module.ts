@@ -14,7 +14,7 @@ import {AuthModule} from './auth/auth.module';
 import {AuthRoutingModule} from './auth/auth-routing.module';
 import {environment} from '../environments/environment';
 import {AuthEffects} from './auth/store/auth.effects';
-import * as fromApp from './store/app,reducer';
+import * as fromApp from './store/app.reducer';
 import {SettingsModule} from './settings/settings.module';
 import {ExerciseEffects} from './settings/exercises/store/exercise.effects';
 

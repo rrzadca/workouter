@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {Store} from '@ngrx/store';
-import * as fromRoot from '../../store/app,reducer';
+import * as fromRoot from '../../store/app.reducer';
 import * as AuthActions from '../store/auth.actions';
 import {Observable, Subscribable, Subscription} from 'rxjs';
 import {MatDialog} from '@angular/material';
