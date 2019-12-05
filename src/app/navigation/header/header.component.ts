@@ -1,8 +1,9 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Store} from '@ngrx/store';
-import * as fromApp from '../../store/app,reducer';
-import * as AuthActions from '../../auth/store/auth.actions';
 import {Observable} from 'rxjs';
+
+import * as fromAuth from '../../auth/store/auth.reducer';
+import * as AuthActions from '../../auth/store/auth.actions';
 
 @Component({
   selector: 'rr-header',
@@ -16,7 +17,7 @@ export class HeaderComponent implements OnInit {
   @Output() sidenavToggle = new EventEmitter<void>();
 
   ngOnInit(): void {
-    this.isAuthenticated$ = this.store.select(state => ( !!state.auth.user ));
+    this.isAuthenticated$ = this.store.select(fromAuth.isAuthenticated);
   }
 
   onSidenavToggle() {
@@ -27,6 +28,6 @@ export class HeaderComponent implements OnInit {
     this.store.dispatch(AuthActions.logout());
   }
 
-  constructor(private store: Store<fromApp.AppState>) {
+  constructor(private store: Store<fromAuth.State>) {
   }
 }

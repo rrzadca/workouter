@@ -5,7 +5,7 @@ import {
   MatIconModule,
   MatInputModule,
   MatListModule, MatProgressSpinnerModule,
-  MatSidenavModule,
+  MatSidenavModule, MatTableModule, MatTabsModule,
   MatToolbarModule
 } from '@angular/material';
 
@@ -18,7 +18,9 @@ const commonModules = [
   MatFormFieldModule,
   MatInputModule,
   MatProgressSpinnerModule,
-  MatDialogModule
+  MatDialogModule,
+  MatTabsModule,
+  MatTableModule
 ];
 
 @NgModule({

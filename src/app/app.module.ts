@@ -9,20 +9,20 @@ import {AppComponent} from './app.component';
 import {SharedModule} from './shared/shared.module';
 import {HeaderComponent} from './navigation/header/header.component';
 import {SidenavListComponent} from './navigation/sidenav-list/sidenav-list.component';
-import {SettingsComponent} from './settings/settings.component';
 import {WorkoutsComponent} from './workouts/workouts.component';
 import {AuthModule} from './auth/auth.module';
 import {AuthRoutingModule} from './auth/auth-routing.module';
 import {environment} from '../environments/environment';
 import {AuthEffects} from './auth/store/auth.effects';
 import * as fromApp from './store/app,reducer';
+import {SettingsModule} from './settings/settings.module';
+import {ExerciseEffects} from './settings/exercises/store/exercise.effects';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     SidenavListComponent,
-    SettingsComponent,
     WorkoutsComponent
   ],
   imports: [
@@ -31,8 +31,9 @@ import * as fromApp from './store/app,reducer';
     AppRoutingModule,
     AuthModule,
     AuthRoutingModule,
+    SettingsModule,
     StoreModule.forRoot(fromApp.appReducer),
-    EffectsModule.forRoot([AuthEffects]),
+    EffectsModule.forRoot([AuthEffects, ExerciseEffects]),
     StoreDevtoolsModule.instrument({ logOnly: environment.production })
   ],
   providers: [],
