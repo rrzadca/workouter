@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {NgForm} from '@angular/forms';
+import {FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
 import {Store} from '@ngrx/store';
 import * as fromRoot from '../../store/app.reducer';
 import * as AuthActions from '../store/auth.actions';
@@ -17,8 +17,10 @@ export class SignupComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
 
   isLoading$: Observable<boolean>;
+  form: FormGroup;
 
   ngOnInit(): void {
+    this.initForm();
     this.isLoading$ = this.store.select(store => store.auth.isLoading);
 
     this.subscription = this.store.select(store => store.auth.authError).subscribe(error => {
@@ -26,10 +28,10 @@ export class SignupComponent implements OnInit, OnDestroy {
     });
   }
 
-  onSubmit(form: NgForm) {
+  onSubmit() {
     this.store.dispatch(AuthActions.startSignup({
-      email: form.value.email,
-      password: form.value.password
+      email: this.form.value.email,
+      password: this.form.value.password
     }));
   }
 
@@ -37,6 +39,13 @@ export class SignupComponent implements OnInit, OnDestroy {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
+  }
+
+  private initForm(): void {
+    this.form = new FormGroup({
+      email: new FormControl(null, [ Validators.email, Validators.required ]),
+      password: new FormControl(null, Validators.required)
+    });
   }
 
   constructor(private store: Store<fromRoot.AppState>,

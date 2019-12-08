@@ -1,6 +1,6 @@
 export interface Exercise {
-  id: number;
+  id: string;
   name: string;
   description: string;
-  machineCode: string;
+  equipment: string;
 }

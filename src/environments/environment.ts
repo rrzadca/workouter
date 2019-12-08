@@ -4,7 +4,16 @@
 
 export const environment = {
   production: false,
-  firebaseApiKey: 'AIzaSyBAW-ZRGBh5FdV-hWTaFkMEsCxjM8igvMk'
+  firebaseConfig: {
+    apiKey: 'AIzaSyBAW-ZRGBh5FdV-hWTaFkMEsCxjM8igvMk',
+    authDomain: 'rr-workouter.firebaseapp.com',
+    databaseURL: 'https://rr-workouter.firebaseio.com',
+    projectId: 'rr-workouter',
+    storageBucket: 'rr-workouter.appspot.com',
+    messagingSenderId: '454028046020',
+    appId: '1:454028046020:web:a67adc7d031b5d98742391',
+    measurementId: 'G-SKXVKWYP9H'
+  }
 };
 
 /*

@@ -1,9 +1,11 @@
-import {BrowserModule} from '@angular/platform-browser';
+import {AngularFireModule} from '@angular/fire';
 import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 import {StoreModule} from '@ngrx/store';
 import {EffectsModule} from '@ngrx/effects';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 
+import {environment} from '../environments/environment';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {SharedModule} from './shared/shared.module';
@@ -12,18 +14,19 @@ import {SidenavListComponent} from './navigation/sidenav-list/sidenav-list.compo
 import {WorkoutsComponent} from './workouts/workouts.component';
 import {AuthModule} from './auth/auth.module';
 import {AuthRoutingModule} from './auth/auth-routing.module';
-import {environment} from '../environments/environment';
 import {AuthEffects} from './auth/store/auth.effects';
-import * as fromApp from './store/app.reducer';
-import {SettingsModule} from './settings/settings.module';
 import {ExerciseEffects} from './settings/exercises/store/exercise.effects';
+import {SettingsComponent} from './settings/settings.component';
+import * as fromApp from './store/app.reducer';
+import {ExercisesModule} from './settings/exercises/exercises.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     SidenavListComponent,
-    WorkoutsComponent
+    WorkoutsComponent,
+    SettingsComponent
   ],
   imports: [
     SharedModule,
@@ -31,10 +34,11 @@ import {ExerciseEffects} from './settings/exercises/store/exercise.effects';
     AppRoutingModule,
     AuthModule,
     AuthRoutingModule,
-    SettingsModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
     StoreModule.forRoot(fromApp.appReducer),
     EffectsModule.forRoot([AuthEffects, ExerciseEffects]),
-    StoreDevtoolsModule.instrument({ logOnly: environment.production })
+    StoreDevtoolsModule.instrument({logOnly: environment.production}),
+    ExercisesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

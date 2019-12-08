@@ -1,17 +1,16 @@
-import {User} from '../user.model';
 import {Action, createFeatureSelector, createReducer, createSelector, on} from '@ngrx/store';
 import * as AuthActions from './auth.actions';
 
 export interface State {
-  user: User;
-  authError: string;
+  isAuthenticated: boolean;
   isLoading: boolean;
+  authError: string;
 }
 
 export const initialState: State = {
-  user: null,
-  authError: null,
-  isLoading: false
+  isAuthenticated: false,
+  isLoading: false,
+  authError: null
 };
 
 const authReducer = createReducer(
@@ -19,11 +18,11 @@ const authReducer = createReducer(
   on(
     AuthActions.startLogin,
     AuthActions.startSignup,
-      state => ({ ...state, isLoading: true })),
+      state => ({ ...state, isLoading: true, authError: null })),
   on(
     AuthActions.loginSuccess,
     AuthActions.signupSuccess,
-    (state, { user }) => ({ ...state, isLoading: false, user })),
+      state => ({ ...state, isLoading: false, isAuthenticated: true, authError: null })),
   on(
     AuthActions.loginFailed,
     AuthActions.signupFailed,
@@ -38,4 +37,4 @@ export function reducer(state: State, action: Action) {
 }
 
 export const getAuthState = createFeatureSelector<State>('auth');
-export const isAuthenticated = createSelector(getAuthState, state => state.user != null);
+export const isAuthenticated = createSelector(getAuthState, state => state.isAuthenticated);

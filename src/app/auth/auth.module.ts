@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {LoginComponent} from './login/login.component';
 import {SignupComponent} from './signup/signup.component';
 import {SharedModule} from '../shared/shared.module';
+import {AngularFireAuthModule} from '@angular/fire/auth';
 
 @NgModule({
   declarations: [
@@ -9,7 +10,8 @@ import {SharedModule} from '../shared/shared.module';
     SignupComponent
   ],
   imports: [
-    SharedModule
+    SharedModule,
+    AngularFireAuthModule
   ]
 })
 export class AuthModule {}

@@ -16,7 +16,7 @@ export class SidenavListComponent implements OnInit {
   @Output() sidenavClosed = new EventEmitter<void>();
 
   ngOnInit(): void {
-    this.isAuthenticated$ = this.store.select(state => ( !!state.auth.user ));
+    this.isAuthenticated$ = this.store.select(state => ( state.auth.isAuthenticated ));
   }
 
   onSidenavClose() {

@@ -1,17 +1,16 @@
 import {NgModule} from '@angular/core';
-import {SettingsComponent} from './settings.component';
-import {ExerciseListComponent} from './exercises/exercise-list/exercise-list.component';
-import {SharedModule} from '../shared/shared.module';
-import {TrainingPlansListComponent} from './trainings/training-plans-list/training-plans-list.component';
+
+import {ExercisesModule} from './exercises/exercises.module';
+import {TrainingsModule} from './trainings/trainings.module';
 
 @NgModule({
-  declarations: [
-    SettingsComponent,
-    ExerciseListComponent,
-    TrainingPlansListComponent
-  ],
   imports: [
-    SharedModule
+    ExercisesModule,
+    TrainingsModule
+  ],
+  exports: [
+    ExercisesModule,
+    TrainingsModule
   ]
 })
 export class SettingsModule {}

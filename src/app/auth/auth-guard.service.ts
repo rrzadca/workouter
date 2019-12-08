@@ -8,10 +8,10 @@ import * as fromApp from '../store/app.reducer';
 @Injectable()
 export class AuthGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.store.select(state => state.auth.user).pipe(
+    return this.store.select(appState => appState.auth.isAuthenticated).pipe(
       take(1),
-      map(user => {
-        if (!!user) {
+      map(isAuth => {
+        if (isAuth) {
           return true;
         }
         return this.router.createUrlTree(['/login']);

@@ -33,6 +33,12 @@ const exerciseReducer = createReducer(
       ...state,
       errorMessage: action.errorMessage
     })
+  ),
+  on(
+    ExerciseActions.addExercise,
+    (state, action) => ({
+      ...state
+    })
   )
 );
 

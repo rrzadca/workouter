@@ -6,7 +6,6 @@ import {Exercise} from '../exercise.model';
 import * as fromApp from '../../../store/app.reducer';
 import * as fromExercise from '../store/exercise.reducer';
 import * as ExerciseActions from '../store/exercise.actions';
-import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'rr-exercise-list',
@@ -17,10 +16,8 @@ export class ExerciseListComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription;
 
-  displayedColumns: string[] = ['name', 'machineCode', 'actions'];
+  displayedColumns: string[] = ['name', 'equipment', 'actions'];
   dataSource = new MatTableDataSource<Exercise>();
-
-  constructor(private store: Store<fromApp.AppState>) { }
 
   ngOnInit(): void {
     console.log('ex list init');
@@ -37,4 +34,10 @@ export class ExerciseListComponent implements OnInit, OnDestroy {
       this.subscription.unsubscribe();
     }
   }
+
+  addExerciseClicked() {
+    alert('show add exercise popup');
+  }
+
+  constructor(private store: Store<fromApp.AppState>) { }
 }
