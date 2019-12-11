@@ -35,7 +35,14 @@ import {ExercisesModule} from './settings/exercises/exercises.module';
     AuthModule,
     AuthRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    StoreModule.forRoot(fromApp.appReducer),
+    StoreModule.forRoot(fromApp.appReducer, {
+      runtimeChecks: {
+        strictActionImmutability: true,
+        strictActionSerializability: true,
+        strictStateImmutability: true,
+        strictStateSerializability: true
+      }
+    }),
     EffectsModule.forRoot([AuthEffects, ExerciseEffects]),
     StoreDevtoolsModule.instrument({logOnly: environment.production}),
     ExercisesModule
