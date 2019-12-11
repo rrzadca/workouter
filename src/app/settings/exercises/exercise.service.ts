@@ -1,35 +1,41 @@
 import {Exercise} from './exercise.model';
-import {Observable, of} from 'rxjs';
+import {Observable} from 'rxjs';
 import {Injectable} from '@angular/core';
-import {AngularFirestore} from '@angular/fire/firestore';
+import {AngularFirestore, DocumentReference} from '@angular/fire/firestore';
+import {map} from 'rxjs/operators';
+import {fromPromise} from 'rxjs/internal-compatibility';
 
 @Injectable({ providedIn: 'root' })
 export class ExerciseService {
 
   getAll(): Observable<Exercise[]> {
-    return of();
+    return this.db
+      .collection('exercises')
+      .stateChanges()
+      .pipe(
+        map(dataArr => {
+          return dataArr.map(item => {
+            return {
+              id: item.payload.doc.id,
+              ...item.payload.doc.data()
+            } as Exercise;
+          });
+        })
+      );
   }
 
-  storeDefaultExerises() {
-    const arr = [
-      { name: 'Legs Press', equipment: 'R12' },
-      { name: 'Leg Extension', equipment: 'R13' },
-      { name: 'Pulley', equipment: 'R18' },
-      { name: 'Diverging Lat Pulldown', equipment: 'R28' },
-      { name: 'Diverging Seated Row', equipment: 'R6' },
-      { name: 'Pectoral Fly', equipment: 'R1' },
-      { name: 'Converging Chest Press', equipment: 'R2' },
-      { name: 'Converging Shoulder Press', equipment: 'R4' },
-      { name: 'Lateral Raise Dumbells' },
-      { name: 'Cable Arm Curl' },
-      { name: 'Cable Arm Extension' }
-    ];
-
-    for (const exercise of arr) {
-      this.db.collection('exercises').add(exercise);
-    }
+  addExercise(exercise: Exercise): Observable<string> {
+    return fromPromise(this.db.collection('exercises').add(exercise))
+      .pipe(
+        map((response: DocumentReference) => {
+          return response.id;
+        })
+      );
   }
 
+  deleteExercise(id): Observable<string> {
+    return fromPromise(this.db.collection('exercise').doc(id).delete()).pipe(map(() => id));
+  }
 
   constructor(private db: AngularFirestore) {}
 }

@@ -17,11 +17,9 @@ export class AuthEffects {
         this.authService
           .signup(credentials)
           .then(userCredentials => {
-            console.log('signUp', userCredentials);
             return AuthActions.signupSuccess({ email: userCredentials.user.email });
           })
           .catch(errorResponse => {
-            console.log('signUp', errorResponse);
             return AuthActions.signupFailed({ errorMessage: errorResponse.message});
           })
       )
@@ -36,11 +34,9 @@ export class AuthEffects {
         this.authService
           .login(credentials)
           .then(userCredentials => {
-            console.log('login', userCredentials);
             return AuthActions.loginSuccess({ email: userCredentials.user.email });
           })
           .catch(errorResponse => {
-            console.log('login', errorResponse);
             return AuthActions.loginFailed({ errorMessage: errorResponse.message});
           })
       )

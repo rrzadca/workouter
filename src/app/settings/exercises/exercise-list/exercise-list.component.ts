@@ -1,11 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {MatTableDataSource} from '@angular/material';
+import {MatDialog, MatTableDataSource} from '@angular/material';
 import {Store} from '@ngrx/store';
 import {Subscription} from 'rxjs';
 import {Exercise} from '../exercise.model';
-import * as fromApp from '../../../store/app.reducer';
 import * as fromExercise from '../store/exercise.reducer';
 import * as ExerciseActions from '../store/exercise.actions';
+import {ExerciseEditComponent} from '../exercise-edit/exercise-edit.component';
 
 @Component({
   selector: 'rr-exercise-list',
@@ -20,11 +20,9 @@ export class ExerciseListComponent implements OnInit, OnDestroy {
   dataSource = new MatTableDataSource<Exercise>();
 
   ngOnInit(): void {
-    console.log('ex list init');
-    this.subscription = this.store
-      .select(fromExercise.getExercises)
-      .subscribe(exercise => {
-        this.dataSource.data = exercise;
+    this.subscription = this.store.select(fromExercise.getExercises)
+      .subscribe(exercises => {
+        this.dataSource.data = exercises;
       });
     this.store.dispatch(ExerciseActions.loadExercises());
   }
@@ -36,8 +34,16 @@ export class ExerciseListComponent implements OnInit, OnDestroy {
   }
 
   addExerciseClicked() {
-    alert('show add exercise popup');
+    const dialogRef = this.editDialog.open(ExerciseEditComponent, { data: { exercise: {} as Exercise, editMode: false }});
+    dialogRef.afterClosed().subscribe(exercise => {
+      this.store.dispatch(ExerciseActions.addExercise({ exercise }));
+    });
   }
 
-  constructor(private store: Store<fromApp.AppState>) { }
+  deleteClicked(id: string) {
+    this.store.dispatch(ExerciseActions.deleteExercise({ id }));
+  }
+
+  constructor(private store: Store<fromExercise.State>,
+              private editDialog: MatDialog) { }
 }

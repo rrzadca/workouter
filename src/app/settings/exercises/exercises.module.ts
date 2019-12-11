@@ -17,6 +17,9 @@ import {ExercisesRoutingModule} from './exercises-routing.module';
   imports: [
     SharedModule,
     ExercisesRoutingModule
+  ],
+  entryComponents: [
+    ExerciseEditComponent
   ]
 })
 export class ExercisesModule {}

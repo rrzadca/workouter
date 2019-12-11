@@ -22,10 +22,12 @@ const exerciseReducer = createReducer(
   ),
   on(
     ExerciseActions.loadExercisesSuccess,
-    (state, action) => ({
+    (state, action) => {
+      return {
       ...state,
-      exercises: action.exercises
-    })
+      exercises: [...action.exercises]
+      };
+    }
   ),
   on(
     ExerciseActions.loadExerciseFailed,
@@ -36,9 +38,28 @@ const exerciseReducer = createReducer(
   ),
   on(
     ExerciseActions.addExercise,
+    (state, action) => ({ ...state})
+  ),
+  on(
+    ExerciseActions.addExerciseSuccess,
+    (state, action) => ({
+        ...state,
+        exercises: [ ...state.exercises, { ...action.exercise}]
+    })
+  ),
+  on(ExerciseActions.deleteExercise,
     (state, action) => ({
       ...state
     })
+  ),
+  on(ExerciseActions.deleteExerciseSuccess,
+    (state, action) => {
+      const temp = {
+        ...state,
+        exercises: state.exercises.filter(exercise => exercise.id !== action.id)
+      };
+      return temp;
+    }
   )
 );
 
@@ -47,4 +68,4 @@ export function reducer(state: State, action: Action) {
 }
 
 export const getExerciseState = createFeatureSelector<State>('exercise');
-export const getExercises = createSelector(getExerciseState, (state: State) => state.exercises);
+export const getExercises = createSelector(getExerciseState, (state: State) => [...state.exercises]);
